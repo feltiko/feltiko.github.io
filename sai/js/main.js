@@ -10591,12 +10591,11 @@ var refSlider = function refSlider(jQuery, options) {
 
 		function swipe(wrapper, leftCallback, rightCallback) {
 			var target = document.getElementsByClassName('cd-hero-slider')[0];
-			var hammertime = new Hammer(target, {});
-			hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-			hammertime.on('swipe', function (ev) {
-				if (ev.direction === 1 || ev.direction === 3) {
-					ev.gesture.preventDefault();
-				}
+			var hammertime = new Hammer(target, {
+				dragLockToAxis: true,
+				dragBlockHorizontal: true });
+
+			hammertime.on('dragleft dragright swipeleft swiperight', function (ev) {
 				if (ev.direction === 2) {
 					leftCallback();
 
